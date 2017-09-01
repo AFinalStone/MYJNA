@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JNA_01/JNA_01.iml" filepath="$PROJECT_DIR$/JNA_01/JNA_01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MYJNA.iml" filepath="$PROJECT_DIR$/MYJNA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyJNA_01/MyJNA_01.iml" filepath="$PROJECT_DIR$/MyJNA_01/MyJNA_01.iml" />
+    </modules>
+  </component>
+</project>
