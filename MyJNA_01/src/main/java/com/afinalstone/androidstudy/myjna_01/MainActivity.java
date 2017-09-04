@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //按钮点击事件
     public void onClick(View view){
         int result = Clibrary.INSTANTCE.sayHello();
         Log.d("MainActivity","sayHello的放回结果:"+result);
