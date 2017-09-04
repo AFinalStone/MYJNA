@@ -126,13 +126,14 @@ public class MainActivity extends AppCompatActivity {
 
 ![结果](pic/结果.png)
 
-#### 避免错误的几条建议：
+#### 避免错误的建议：
 
-1.要注意我们生成的库文件都是lib**.so，我们在加载的时候不需要前面lib前缀。
+1.要注意我们生成的库文件都是lib**.so，但是我们在加载.so库文件的时候是不需要lib前缀的。
 
-2.要检查build.gradle中是否指定了.so库文件的地址
+2.要检查build.gradle中是否指定了.so库文件的地址，在这里我之所以吧所有的.so库文件都放在了jniLibs文件夹中，
+是因为我在build.gradle中指定了 jniLibs.srcDirs = ['src/main/jniLibs']
 
-3.可以尝试解压成功编译的apk，查看该apk的lib目录下面是否有libsayhello.so和libjnidispatch.so.so两个库文件。
+3.可以解压成功编译的apk，查看该apk的lib目录下面是否有libsayhello.so和libjnidispatch.so两个库文件。
 
 4.项目中偶时候需要用到Java调用c++函数代码，但是始终出错，主要错误原因是undefined symbol，找不到c++ 方法。
 需要我们使用extern "C" 给C++代码做标记，否则无法找到。
