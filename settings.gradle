@@ -1,1 +1,1 @@
-include ':JNA_01', ':MyJNA_01'
+include ':JNA_01', ':MyJNA_01', ':MYJNA_02'
