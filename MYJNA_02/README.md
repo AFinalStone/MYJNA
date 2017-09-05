@@ -1,3 +1,54 @@
+上篇文章我们成功实现了Java使用JNA调用C/C++的函数代码：
+
+```C
+int sayHello(){
+    printf("Hello World!");
+    return 1;
+}
+```
+
+上面的代码非常简单，在控制台打印输入"Hello World"，并返回整数型。然后我们在CLibrary中也是定义了一个对应的函数
+
+```
+int sayHello();
+```
+
+由于C/C++语言和Java语言中的int类型对应，所以这里并没有进行类型转换，也就大大降低了调用JNA和C/C++代码对接的难度。
+
+有过跨语言、跨平台开发的程序员都知道，跨平台、语言调用的难点，就是不同语言之间数据类型不一致造成的问题。绝大部分跨平台调用的失败，都是这个问题造成的。关于这一点，不论何种语言，何种技术方案，都无法解决这个问题。JNA也不例外。
+
+上面说到接口中使用的函数必须与链接库中的函数原型保持一致，这是JNA甚至所有跨平台调用的难点，因为C/C++的类型与Java的类型是不一样的，你必须转换类型让它们保持一致，比如printf函数在C中的原型为：
+
+```
+void printf(const char *format, [argument]);
+```
+
+你不可能在Java中也这么写，Java中是没有char *指针类型的，因此const char * 转到Java下就是String类型了。
+
+JNA官方给出的默认类型映射（Type Mappings）如下：
+
+![类型映射](pic/类型映射.png)
+
+个人查阅资料总结如下：
+
+
+
+來源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+| Native Type|Size|Java Type| Common Windows Types |
+|:----:|:----:|:----:|:----:|
+| char  |  8-bit integer   | byte | BYTE, TCHAR |
+| short | 16-bit integer  | short |  WORD|
+| wchar_t  | 16/32-bit character| char |TCHAR|
+|int | 32-bit integer |   int  |DWORD|
+| int | boolean value  | boolean | BOOL |
+| long | 32/64-bit integer | NativeLong | LONG |
+| long long | 64-bit integer  |  long  | __int64 |
+| float  |  32-bit FP  |   float    |
+| double | 64-bit FP   |   double   | 
+| char* |  C string   |   String  |  LPTCSTR |
+|  void* |  pointer    |  Pointer  | LPVOID, HANDLE, LPXXX
 
 #### 首先是check.cpp文件：
 
