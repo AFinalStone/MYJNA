@@ -8,9 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/JNA_01" />
+            <option value="$PROJECT_DIR$/MYJNA_01" />
             <option value="$PROJECT_DIR$/MYJNA_02" />
-            <option value="$PROJECT_DIR$/MyJNA_01" />
+            <option value="$PROJECT_DIR$/MYJNA_03" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
