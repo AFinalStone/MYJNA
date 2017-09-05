@@ -13,7 +13,7 @@ int sayHello(){
 int sayHello();
 ```
 
-由于C/C++语言和Java语言中的int类型对应，所以这里并没有进行类型转换，也就大大降低了调用JNA和C/C++代码对接的难度。
+由于C/C++语言和Java语言中的int类型对应，所以这里并没有复杂的类型转换，也就大大降低了调用JNA和C/C++代码对接的难度。
 
 有过跨语言、跨平台开发的程序员都知道，跨平台、语言调用的难点，就是不同语言之间数据类型不一致造成的问题。绝大部分跨平台调用的失败，都是这个问题造成的。关于这一点，不论何种语言，何种技术方案，都无法解决这个问题。JNA也不例外。
 
@@ -28,7 +28,7 @@ void printf(const char *format, [argument]);
 JNI的常用类型映射（Type Mappings）如下：
 
 | Native Type|Java Type | 	Native Representation | 
-|:----:|:----:|:----:|
+|:------:|:------:|:------:|
 | char  | byte | 8-bit integer   | 
 | wchar_t  | char | 16/32-bit character|
 | short | short |  16-bit integer  | 
@@ -38,8 +38,8 @@ JNI的常用类型映射（Type Mappings）如下：
 | long long |long  | 64-bit integer  |  
 | float  |  float    | 32-bit FP  |  
 | double |  double   | 64-bit FP   |  
-| pointer |  Buffer/Pointer | platform-dependent (32- or 64-bit pointer to me |
-| pointer array |  [] (array of primitive type)|32- or 64-bit pointer to memory (argument/return)  contiguous memory (struct member)|
+| pointer |  Buffer/Pointer |
+| pointer array |  [] (array of primitive type)|
 | char* |  String  | 
 | wchar_t* |  WString  | 
 | char** |  String[]  | 
