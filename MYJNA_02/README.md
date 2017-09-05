@@ -25,30 +25,39 @@ void printf(const char *format, [argument]);
 
 你不可能在Java中也这么写，Java中是没有char *指针类型的，因此const char * 转到Java下就是String类型了。
 
-JNA官方给出的默认类型映射（Type Mappings）如下：
+JNI的常用类型映射（Type Mappings）如下：
 
-![类型映射](pic/类型映射.png)
+| Native Type|Java Type | 	Native Representation | 
+|:----:|:----:|:----:|
+| char  | byte | 8-bit integer   | 
+| wchar_t  | char | 16/32-bit character|
+| short | short |  16-bit integer  | 
+|int |  int  |32-bit integer |  
+| int |boolean | 32-bit integer (customizable) | 
+|  long, __int64 |  long |64-bit integer |
+| long long |long  | 64-bit integer  |  
+| float  |  float    | 32-bit FP  |  
+| double |  double   | 64-bit FP   |  
+| pointer |  Buffer/Pointer | platform-dependent (32- or 64-bit pointer to me |
+| pointer array |  [] (array of primitive type)|32- or 64-bit pointer to memory (argument/return)  contiguous memory (struct member)|
+| char* |  String  | 
+| wchar_t* |  WString  | 
+| char** |  String[]  | 
+| wchar_t** | WString[] | 
+|  void* |  Pointer  | 
+|  void ** | PointerByReference  | 
+|  int& | IntByReference  | 
+|  int* |  IntByReference  | 
+|  struct|  Structure    | 
+|  (*fp)()|  Callback   | 
+| varies |  NativeMapped    | 
+| long |  NativeLong    | 
+| pointer |  PointerType    | 
 
-个人查阅资料总结如下：
 
 
 
-來源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-
-| Native Type|Size|Java Type| Common Windows Types |
-|:----:|:----:|:----:|:----:|
-| char  |  8-bit integer   | byte | BYTE, TCHAR |
-| short | 16-bit integer  | short |  WORD|
-| wchar_t  | 16/32-bit character| char |TCHAR|
-|int | 32-bit integer |   int  |DWORD|
-| int | boolean value  | boolean | BOOL |
-| long | 32/64-bit integer | NativeLong | LONG |
-| long long | 64-bit integer  |  long  | __int64 |
-| float  |  32-bit FP  |   float    |
-| double | 64-bit FP   |   double   | 
-| char* |  C string   |   String  |  LPTCSTR |
-|  void* |  pointer    |  Pointer  | LPVOID, HANDLE, LPXXX
+其他的像 整数引用类型int& 对应IntByReference
 
 #### 首先是check.cpp文件：
 
