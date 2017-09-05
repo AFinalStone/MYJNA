@@ -1,3 +1,7 @@
+## JNA实战笔记汇总<二> JNA和C/C++的数据类型转换
+
+### 一、JNA技术的难点
+
 上篇文章我们成功实现了Java使用JNA调用C/C++的函数代码：
 
 ```C
@@ -25,7 +29,7 @@ void printf(const char *format, [argument]);
 
 你不可能在Java中也这么写，Java中是没有char *指针类型的，因此const char * 转到Java下就是String类型了。
 
-JNI的常用类型映射（Type Mappings）如下：
+### 二、JNA的常用类型映射（Type Mappings）如下：
 
 | Native Type|Java Type | 	Native Representation | 
 |:------:|:------:|:------:|
@@ -54,12 +58,47 @@ JNI的常用类型映射（Type Mappings）如下：
 | long |  NativeLong    | 
 | pointer |  PointerType    | 
 
+### 三、具体实例
+
+接下来我们写一个复杂一点的C++函数
+
+```
+bool checksum(const char* src_data, unsigned short&  check_ret)
+```
+
+然后在Java中调用该方法，传入具体参数，并获取到返回值。
+
+#### 1、首先是check.h文件和check.cpp文件：
+
+- check.h
+
+```h
+#ifndef TASK_CHECKSUM_H
+#define TASK_CHECKSUM_H
+
+typedef signed char int8_t;
+typedef short int  int16_t;
+typedef int        int32_t;
 
 
+/* --------------------------------------------------------------------------*/
+/**
+ * @Synopsis          checksum加密算法
+ *
+ * @Param src_data    被加密的字符串 
+ *
+ * @Param check_ret   int16_t类型的加密结果
+ *
+ * @Returns           加密是否成功
+ */
+/* ----------------------------------------------------------------------------*/
 
-其他的像 整数引用类型int& 对应IntByReference
+extern "C" bool checksum(const char* src_data, unsigned short& check_ret);
 
-#### 首先是check.cpp文件：
+#endif
+```
+
+- check.cpp
 
 ```C
 #include "check.h"
@@ -110,35 +149,13 @@ bool checksum(const char* src_data, unsigned short&  check_ret) {
 
 ```
 
-#### 然后是check.h文件
+上述代码中checksum函数需要用户传入一个char*指针类型的参数src_data和一个short&引用类型的check_ret，代码对stc_data进行
+加密操作之后，把加密结果返回到参数check_ret中，函数返回加密是否成功的标记。由于代码中使用了string，bool等和C++相关的元素，
+所以我们的文件后缀一定要使用.cpp，并且在整个函数外部使用了 extern "C" 给C++代码做标记，否则在Java调用该方法的时候会提示无法找到。
 
-```h
-#ifndef TASK_CHECKSUM_H
-#define TASK_CHECKSUM_H
+#### 2、然后是CLibrary对象和MainActivity对象
 
-typedef signed char int8_t;
-typedef short int  int16_t;
-typedef int        int32_t;
-
-
-/* --------------------------------------------------------------------------*/
-/**
- * @Synopsis          checksum加密算法
- *
- * @Param src_data    被加密的字符串 
- *
- * @Param check_ret   int16_t类型的加密结果
- *
- * @Returns           加密是否成功
- */
-/* ----------------------------------------------------------------------------*/
-
-extern "C" bool checksum(const char* src_data, unsigned short& check_ret);
-
-#endif
-```
-
-编译C++代码，生成libcheck.so文件，把他们添加到已经准备好的jniLibs文件夹中，然后创建按一个CLibrary类：
+编写完毕代码，使用Ndk-build命令行进行编译，成功生成libcheck.so文件，配置完毕JNA的相关jar包和库文件，把他们添加到已经准备好的jniLibs文件夹中，然后创建按一个CLibrary类：
 
 ```C++
 //继承Library，用于加载库文件
@@ -184,4 +201,6 @@ public class MainActivity extends AppCompatActivity {
 
 ```
 
+代码定义了一个点击事件，点击按钮调用  int flag = Clibrary.INSTANTCE.checksum("123",check_ret),并输出checksum的返回标记和加密结果。
 
+![结果](pic/结果.png)
