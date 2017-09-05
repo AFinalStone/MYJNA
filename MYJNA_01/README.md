@@ -1,6 +1,6 @@
 ## JNA实战笔记汇总<一> 简单认识JNA|成功调用JNA
 
-### 简介
+### 一、简介
 
 先说JNI(Java Native Interface)吧，有过不同语言间通信经历的一般都知道，它允许Java代码和其他语言（尤其C/C++）写的代码进行交互，只要遵守调用约定即可。首先看下JNI调用C/C++的过程，注意写程序时自下而上，调用时自上而下。
 
@@ -22,7 +22,7 @@ JNA(Java Native Access)框架是一个开源的Java框架，是SUN公司主导�
 JNA只需要我们写Java代码而不用写JNI或本地代码。功能相对于Windows的Platform/Invoke和Python的ctypes。
 
 
-### 原理
+### 二、原理
 
 JNA使用一个小型的JNI库插桩程序来动态调用本地代码。开发者使用Java接口描述目标本地库的功能和结构，这使得它很容易利用本机平台的功能，而不会产生多平台配置和生成JNI代码的高开销。这样的性能、准确性和易用性显然受到很大的重视。
 
@@ -38,12 +38,12 @@ JNA中，它提供了一个动态的C语言编写的转发器，可以自动实�
 
 也许这也意味着，使用JNA技术比使用JNI技术调用动态链接库会有些微的性能损失。但总体影响不大，因为JNA也避免了JNI的一些平台配置的开销。
 
-### 相关jna.jar包和.so库文件的下载
+### 三、相关jna.jar包和.so库文件的下载
 
 JNA的项目是放在[Github上面的](https://github.com/java-native-access/jna)，目前最新版本是4.4.0，已有打包好的jar文件可供下载。
 我这里使用的是4.2.1版本的，并提供了可以直接使用的jar包和.so库文件，[JNA开发的jna.jar以及.so库文件](http://download.csdn.net/download/abc6368765/9963681)，
 
-### 配置环境，编译sayhello.so库文件
+### 四、配置环境，编译sayhello.so库文件
 
 1、在app下面建立一個jni文件夾，添加库函数文件sayhello.c：
 
@@ -106,7 +106,7 @@ dependencies {
 }
 ```
 
-### 创建Library，成功实现Java调用C/C++函数代码库
+### 五、创建Library，成功实现Java调用C/C++函数代码库
 
 创建一个Clibrary对象：
 
@@ -148,7 +148,7 @@ public interface Clibrary extends Library {
 
 定义好接口后，就可以使用接口中的函数即相应dll/so中的函数了
 
-### 调用C++函数代码
+### 六、调用C++函数代码
 
 定义好接口后，就可以使用接口中的函数即相应函数库中的函数了，这里我们在MainActivity中响应点击事件调用C++函数代码，并打印出结果：
 
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
 ![结果](pic/结果.png)
 
-### 避免错误的建议：
+### 七、避免错误的建议：
 
 1.要注意我们生成的库文件都是lib**.so，但是我们在加载.so库文件的时候是不需要lib前缀的。
 
