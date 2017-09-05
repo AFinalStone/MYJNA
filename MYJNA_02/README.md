@@ -58,6 +58,8 @@ void printf(const char *format, [argument]);
 | long |  NativeLong    | 
 | pointer |  PointerType    | 
 
+#### 附带一个很重要的API接口文档地址：[传送门](http://java-native-access.github.io/jna/4.4.0/javadoc/)
+
 ### 三、具体实例
 
 接下来我们写一个复杂一点的C++函数
