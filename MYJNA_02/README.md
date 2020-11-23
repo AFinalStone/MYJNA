@@ -151,7 +151,7 @@ bool checksum(const char* src_data, unsigned short&  check_ret) {
 
 ```
 
-上述代码中checksum函数需要用户传入一个char*指针类型的参数src_data和一个short&引用类型的check_ret，代码对stc_data进行
+上述代码中checksum函数需要用户传入一个char*指针类型的参数src_data和一个short&引用类型的check_ret，代码对src_data进行
 加密操作之后，把加密结果返回到参数check_ret中，函数返回加密是否成功的标记。由于代码中使用了string，bool等和C++相关的元素，
 所以我们的文件后缀一定要使用.cpp，并且在整个函数外部使用了 extern "C" 给C++代码做标记，否则在Java调用该方法的时候会提示无法找到。
 
@@ -159,7 +159,7 @@ bool checksum(const char* src_data, unsigned short&  check_ret) {
 
 编写完毕代码，使用Ndk-build命令行进行编译，成功生成libcheck.so文件，配置完毕JNA的相关jar包和库文件，把他们添加到已经准备好的jniLibs文件夹中，然后创建按一个CLibrary类：
 
-```C++
+```java
 //继承Library，用于加载库文件
 public interface Clibrary extends Library {
     //加载libhello.so链接库
